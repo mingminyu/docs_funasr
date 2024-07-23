@@ -156,6 +156,10 @@ nav:
     - index.md
     - 快速入门:
       - 安装: installation.md
+      - 命令行参数: funasr_cli.md
+      - 基础功能: overview.md
+      - 导出模型: export_model.md
+      - 服务部署: deploy.md
 
     - 模型仓库: model_repo.md
     - 更新日志: changelog.md
