@@ -100,7 +100,7 @@ torchrun --nnodes 2 --node_rank 0 --nproc_per_node ${gpu_num} \
 
 在从节点上（假设 IP 为 192.168.1.2），你需要确保 `MASTER_ADDR` 和 `MASTER_PORT` 环境变量与主节点设置的一致，并运行同样的命令：
 
-```bash linenums="1" hl_linenums="5"
+```bash linenums="1" hl_lines="5"
 export CUDA_VISIBLE_DEVICES="0,1"
 gpu_num=$(echo $CUDA_VISIBLE_DEVICES | awk -F "," '{print NF}')
 
