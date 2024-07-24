@@ -5,5 +5,4 @@ FunASR 是阿里达摩院开源的基础语音识别工具包，提供非常丰�
 ![FunASR 技术里程碑](https://github.com/modelscope/FunASR/blob/main/runtime/docs/images/sdk_roadmap.jpg?raw=true)
 
 
-
 [^1]: Paraformer: https://www.modelscope.cn/models/damo/speech_paraformer-large_asr_nat-zh-cn-16k-common-vocab8404-pytorch/summary
