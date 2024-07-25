@@ -69,7 +69,49 @@ funasr-train ++model=paraformer-zh \
 
 ### 2.2 脚本训练
 
-官方仓库提供了可靠的[训练脚本](https://github.com/modelscope/FunASR/blob/main/examples/industrial_data_pretraining/paraformer/finetune.sh)，
+官方仓库提供了可靠的[训练脚本](https://github.com/modelscope/FunASR/blob/main/examples/industrial_data_pretraining/paraformer/finetune.sh)，通过执行 `bash finetune.sh` 来进行模型训练。
+
+```bash linenums="1"
+funasr/bin/train.py \
+    ++model="${model_name_or_model_dir}" \
+    ++train_data_set_list="${train_data}" \
+    ++valid_data_set_list="${val_data}" \
+    ++dataset_conf.batch_size=20000 \
+    ++dataset_conf.batch_type="token" \
+    ++dataset_conf.num_workers=4 \
+    ++train_conf.max_epoch=50 \
+    ++train_conf.log_interval=1 \
+    ++train_conf.resume=false \
+    ++train_conf.validate_interval=2000 \
+    ++train_conf.save_checkpoint_interval=2000 \
+    ++train_conf.keep_nbest_models=20 \
+    ++train_conf.avg_nbest_model=10 \
+    ++optim_conf.lr=0.0002 \
+    ++output_dir="${output_dir}" &> ${log_file}
+```
+
+这里对使用参数进行一个简要说明。
+
+| 参数 | 说明 |
+| ---- | ---- |
+| model | 模型名称 |
+| train_data_set_list | 训练数据文件路径，jsonl 格式 |
+| valid_data_set_list | 验证数据文件路径，jsonl 格式 |
+| dataset_conf.batch_type | 默认是 `example`，`length` 或者 `token` 表示动态组 batch。<br> `example` 表示每个 batch 中固定 `batch_size` 个样本；<br> `length` 表示每个 batch 固定样本长度，单位为 fbank 帧数（1 帧 10ms）；<br> `token` 标志每个 batch 中 token 个数数作为 `batch_size`。 |
+| dataset_conf.batch_size | 与 `batch_type` 搭配使用 |
+| train_conf.max_epoch | 训练周期数 |
+| train_conf.log_interval | 打印日志间隔的 Step 数 |
+| train_conf.resume | 默认为 `True`，是否开启断点重新训练 |
+| train_conf.validate_interval | 默认为 5000，训练中做验证测试的间隔 Step 数 |
+| train_conf.save_checkpoint_interval | 默认为 5000，训练中每隔 Step 数保存一版模型 |
+| train_conf.avg_keep_nbest_models_type | 默认为 `acc`，保留 nbest 的标准为 Acc（越大越好）；`loss` 表示保留 nbest 的标准为 Loss（越小越好）。 |
+| train_conf.keep_nbest_models | 默认为 500，保留最大多少个模型参数，配合 `avg_keep_nbest_models_type` 按照验证集 acc/loss 保留最佳的 n 个模型，其他删除，节约存储空间。 |
+| train_conf.avg_nbest_model | 默认为 10，保留最大多少个模型参数，配合 `avg_keep_nbest_models_type` 按照验证集 acc/loss 对最佳的 n 个模型平均。|
+| train_conf.accum_grad | 默认为 1，开启梯度累计功能 |
+| train_conf.grad_clip | 默认为 10，开启梯度截断功能 |
+| train_conf.use_fp16 | 默认为 `False`，开启 FP16 训练，加快训练速度。 |
+| optim_conf.lr | 学习率 |
+| output_dir | 模型保存路径 |
 
 ### 2.3 多GPU训练
 
@@ -122,7 +164,7 @@ torchrun --nnodes 2 --node_rank 1 --nproc_per_node ${gpu_num} \
 
 - rank 表示 GPU ID。
 - loss_avg_rank 表示当前 Step 所有 GPU 平均损失值。
-- {++loss/ppl/acc==}_avg_epoch 表示当前 Epoch 截止当前 Step 数时，总平均 Loss/PPL/Acc。此外，Epoch 结束时的最后一个 Step 表示总平均 Loss/PPL/Acc，推荐使用 Acc 指标。
+- {++loss/ppl/acc++}_avg_epoch 表示当前 Epoch 截止当前 Step 数时，总平均 Loss/PPL/Acc。此外，Epoch 结束时的最后一个 Step 表示总平均 Loss/PPL/Acc，推荐使用 Acc 指标。
 - lr 表示当前 Step 的学习率。
 - `[('loss_att', 0.259), ('acc', 0.825), ('loss_pre', 0.04), ('loss', 0.299), ('batch_size', 40)]` 表示当前 GPU ID 的具体数据。
 - total_time 表示单个 Step 总耗时。
@@ -134,6 +176,54 @@ torchrun --nnodes 2 --node_rank 1 --nproc_per_node ${gpu_num} \
 tensorboard --logdir /xxxx/FunASR/examples/industrial_data_pretraining/paraformer/outputs/log/tensorboard
 ```
 
-
 ## 3. 模型测试
 
+### 3.1 有 configuration.json
+
+训练后的模型文件夹 `ft_model` 中存在 configuration.json 文件，只需要将之前 ModelScope 或 HuggingFace 上模型名称更改为 `ft_model` 即可，使用上并无太大差异。
+
+???+ example "使用训练后的模型"
+
+    === "命令行调用"
+
+        ```bash linenums="1"
+        python -m funasr.bin.inference ++model="./model_dir" \
+            ++input=="${input}" \
+            ++output_dir="${output_dir}"
+        ```
+
+    === "Python 调用"
+
+        ```bash linenums="1"
+        from funasr import AutoModel
+
+        model = AutoModel(model="./model_dir")
+        res = model.generate(input=wav_file)
+        print(res)
+        ```
+
+### 3.2 无 configuration.json
+
+如果训练后的模型文件夹 `ft_model` 中不存在 configuration.json 文件，那么需要手动指定配置文件。
+
+```bash linenums="1"
+python -m funasr.bin.inference \
+    --config-path "${local_path}" \
+    --config-name "${config}" \
+    ++init_param="${init_param}" \
+    ++tokenizer_conf.token_list="${tokens}" \
+    ++frontend_conf.cmvn_file="${cmvn_file}" \
+    ++input="${input}" \
+    ++output_dir="${output_dir}" \
+    ++device="${device}"
+```
+
+这里对上面参数做一个简要介绍。
+
+| 参数 | 说明 |
+| ---- | ---- |
+| config-path | 训练中的 config.yaml 文件 |
+| config-name | 配置文件名，一般为 config.yaml，支持 YAML 和 JSON 格式 |
+| init_param | 需要测试的模型参数，一般为 model.pt |
+| tokenizer_conf.token_list | 词表文件路径，一般在 config.yaml 有指定，无需再手动指定，当 config.yaml 中路径不正确时，需要在此处手动指定。 |
+| frontend_conf.cmvn_file | wav 提取 fbank 中用到的 cmvn 文件，一般在 config.yaml 有指定，无需再手动指定，当 config.yaml 中路径不正确时，需要在此处手动指定。 |
