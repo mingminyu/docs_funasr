@@ -87,6 +87,8 @@ print(text)
 
 ## 2. 实时 ASR
 
+### 2.1 读取音频文件模拟实时 ASR
+
 Paraformer-zh-streaming 是一个实时的语音识别引擎，以下示例是读取一个音频文件，然后遍历字节流来模拟实时识别的场景。
 
 ```python linenums="1" hl_lines="20"
@@ -122,6 +124,84 @@ for i in range(total_chunk_num):
 ```
 
   1. `chunk_size` 为流式延时配置，`[0,10,5]` 表示上屏实时出字粒度为 10x60=600ms，未来信息为 5x60=300ms。每次推理输入为 600ms（采样点数为 16000x0.6=960），输出为对应文字，最后一个语音片段输入需要设置 `is_final=True` 来强制输出最后一个字。
+
+### 2.2 使用麦克风进行实时 ASR
+
+接下来，我们使用通过开启麦克风，进行实时语音识别。
+
+```python
+import sys
+import sounddevice as sd
+import numpy as np
+import queue
+import threading
+import time
+from funasr import AutoModel
+
+
+sample_rate = 16000  # 采样率
+device = 0  # 输入设备ID，可以用 `sd.query_devices()` 查看
+chunk_size = [0, 10, 5]  
+encoder_chunk_look_back = 4  # 自注意力编码器回溯的 chunk 数量
+decoder_chunk_look_back = 1  # 交叉注意力编码器回溯的 chunk 数量 
+chunk_stride = chunk_size[1] * 960
+
+# 初始化 FunASR 模型
+asr_model = AutoModel(model="paraformer-zh-streaming")
+
+# 创建音频队列
+audio_queue = queue.Queue()
+cache = {}
+texts = []
+
+def audio_callback(indata, frames, time, status):
+    if status:
+        print(status, file=sys.stderr)
+    # 将音频数据放入队列中
+    audio_queue.put(indata.copy())
+
+def recognize_audio():
+    print("开始实时语音识别...")
+    while True:
+        # 从队列中获取音频块
+        if not audio_queue.empty():
+            audio_data = audio_queue.get()
+            # 将音频数据转换为适合模型输入的格式
+            audio_data = audio_data.flatten()
+            # 调用模型进行识别
+            # result = asr_model(audio_data)
+            res = asr_model.generate(
+                input=audio_data, 
+                cache=cache, 
+                is_final=False,
+                chunk_size=chunk_size, 
+                encoder_chunk_look_back=encoder_chunk_look_back,
+                decoder_chunk_look_back=decoder_chunk_look_back
+                )
+            
+            texts.append(res[0]["text"])
+            print("识别结果:", res[0]["text"])
+
+            if "关机" in "".join(texts):
+                print("检测到语音播报：", "关机")
+                sys.exit()
+            
+# 创建音频流
+with sd.InputStream(
+    samplerate=sample_rate, blocksize=chunk_stride, 
+    device=device, channels=1, callback=audio_callback
+    ):
+    # 启动识别线程
+    recognition_thread = threading.Thread(target=recognize_audio)
+    recognition_thread.start()
+
+    # 让主线程持续运行
+    try:
+        while True:
+            time.sleep(1)
+    except KeyboardInterrupt:
+        print("\n停止实时语音识别。")
+```
 
 
 ## 3. AutoModel API 使用
