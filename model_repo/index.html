@@ -1,0 +1,1765 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="FunASR 中文文档">
+      
+      
+        <meta name="author" content="Mingmin Yu">
+      
+      
+        <link rel="canonical" href="https://mingminyu.github.io/model_repo/">
+      
+      
+        <link rel="prev" href="../deploy/">
+      
+      
+        <link rel="next" href="../changelog/">
+      
+      
+      <link rel="icon" href="../custom/assets/asr.svg">
+      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.30">
+    
+    
+      
+        <title>模型仓库 - FunASR 中文文档</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.3cba04c6.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../custom/stylesheets/extra.css">
+    
+      <link rel="stylesheet" href="https://unpkg.com/katex@0/dist/katex.min.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue-grey" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#_1" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href=".." title="FunASR 中文文档" class="md-header__button md-logo" aria-label="FunASR 中文文档" data-md-component="logo">
+      
+  <img src="../custom/assets/asr.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            FunASR 中文文档
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              模型仓库
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="blue-grey" data-md-color-accent="indigo"  aria-label="暗黑模式"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="暗黑模式" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69Z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="indigo"  aria-label="明亮模式"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="明亮模式" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12c0-2.42-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69Z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="分享" aria-label="分享" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7 0-.24-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91 1.61 0 2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08Z"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href=".." class="md-tabs__link">
+          
+  
+    
+  
+  教程
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="FunASR 中文文档" class="md-nav__button md-logo" aria-label="FunASR 中文文档" data-md-component="logo">
+      
+  <img src="../custom/assets/asr.svg" alt="logo">
+
+    </a>
+    FunASR 中文文档
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" checked>
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href=".." class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    教程
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_1" id="__nav_1_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            教程
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../installation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    安装
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cli/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    命令行参数
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_1_4" id="__nav_1_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    基础功能
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_1_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1_4">
+            <span class="md-nav__icon md-icon"></span>
+            基础功能
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../asr/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    语音识别
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../vad/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    语音端点检测
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ct_punc/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    标点恢复
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../emotion/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    情感识别
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../fa/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    时间戳预测
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../train/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    训练
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../export_model/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    导出模型
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../deploy/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    服务部署
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    模型仓库
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    模型仓库
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. 语音识别模型
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. 语音识别模型">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.1 其他模型
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12-paraformer" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.2 Paraformer 模型
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#13-uniasr" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.3 UniASR 模型
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#14-conformer" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.4 Conformer 模型
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. 多说话人语音识别模型
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. 语音端点检测模型
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. 标点恢复模型
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. 语音模型
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. 说话人确认模型
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7" class="md-nav__link">
+    <span class="md-ellipsis">
+      7. 说话人日志模型
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8" class="md-nav__link">
+    <span class="md-ellipsis">
+      8. 时间戳预测模型
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9" class="md-nav__link">
+    <span class="md-ellipsis">
+      9. 逆文本正则化
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../changelog/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    更新日志
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. 语音识别模型
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. 语音识别模型">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.1 其他模型
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12-paraformer" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.2 Paraformer 模型
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#13-uniasr" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.3 UniASR 模型
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#14-conformer" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.4 Conformer 模型
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. 多说话人语音识别模型
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. 语音端点检测模型
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. 标点恢复模型
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. 语音模型
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. 说话人确认模型
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7" class="md-nav__link">
+    <span class="md-ellipsis">
+      7. 说话人日志模型
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8" class="md-nav__link">
+    <span class="md-ellipsis">
+      8. 时间戳预测模型
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9" class="md-nav__link">
+    <span class="md-ellipsis">
+      9. 逆文本正则化
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="_1">模型仓库<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
+<p>FunASR开源了大量在工业数据上预训练模型，您可以在模型许可协议下自由使用、复制、修改和分享 FunASR 模型，下面列举代表性的模型。</p>
+<p>🤗 表示Huggingface模型仓库，🍀表示OpenAI模型仓库</p>
+<h2 id="1">1. 语音识别模型<a class="headerlink" href="#1" title="Permanent link">&para;</a></h2>
+<h3 id="11">1.1 其他模型<a class="headerlink" href="#11" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">模型</th>
+<th style="text-align: center;">任务详情</th>
+<th style="text-align: center;">训练数据</th>
+<th style="text-align: center;">参数量</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><a href="https://www.modelscope.cn/models/iic/SenseVoiceSmall">SenseVoiceSmall</a> <a href="https://huggingface.co/FunAudioLLM/SenseVoiceSmall">🤗</a></td>
+<td style="text-align: center;">多种语音理解能力，涵盖了自动语音识别（ASR）、语言识别（LID）、情感识别（SER）以及音频事件检测（AED）</td>
+<td style="text-align: center;">400000小时，中文</td>
+<td style="text-align: center;">330M</td>
+</tr>
+<tr>
+<td style="text-align: center;"><a href="https://www.modelscope.cn/models/iic/Whisper-large-v3/summary">Whisper-large-v3</a> <a href="https://github.com/openai/whisper">🍀</a></td>
+<td style="text-align: center;">语音识别，带时间戳输出，非实时</td>
+<td style="text-align: center;">多语言</td>
+<td style="text-align: center;">1550 M</td>
+</tr>
+<tr>
+<td style="text-align: center;"><a href="https://github.com/modelscope/FunASR/blob/main/examples/industrial_data_pretraining/qwen_audio/demo.py">Qwen-Audio</a> <a href="https://huggingface.co/Qwen/Qwen-Audio">🤗</a></td>
+<td style="text-align: center;">音频文本多模态大模型（预训练）</td>
+<td style="text-align: center;">多语言</td>
+<td style="text-align: center;">8B</td>
+</tr>
+<tr>
+<td style="text-align: center;"><a href="https://github.com/modelscope/FunASR/blob/main/examples/industrial_data_pretraining/qwen_audio/demo_chat.py">Qwen-Audio-Chat</a> <a href="https://huggingface.co/Qwen/Qwen-Audio-Chat">🤗</a></td>
+<td style="text-align: center;">音频文本多模态大模型（chat版本）</td>
+<td style="text-align: center;">多语言</td>
+<td style="text-align: center;">8B</td>
+</tr>
+<tr>
+<td style="text-align: center;"><a href="https://modelscope.cn/models/iic/emotion2vec_plus_large/summary">Emotion2vec+large</a> <a href="https://huggingface.co/emotion2vec/emotion2vec_plus_large">🤗</a></td>
+<td style="text-align: center;">情感识别模型</td>
+<td style="text-align: center;">40000小时，4种情感类别</td>
+<td style="text-align: center;">300M</td>
+</tr>
+</tbody>
+</table>
+<h3 id="12-paraformer">1.2 Paraformer 模型<a class="headerlink" href="#12-paraformer" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">模型名字</th>
+<th style="text-align: left;">任务详情</th>
+<th style="text-align: left;">训练数据</th>
+<th style="text-align: left;">参数量</th>
+<th style="text-align: left;">词典大小</th>
+<th style="text-align: left;">是否实时</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><a href="https://www.modelscope.cn/models/iic/speech_seaco_paraformer_large_asr_nat-zh-cn-16k-common-vocab8404-pytorch/summary">SeACoParaformer-zh</a></td>
+<td style="text-align: left;">带热词功能的语音识别，带时间戳输出</td>
+<td style="text-align: left;">60000小时，中文</td>
+<td style="text-align: left;">220M</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">非实时</td>
+</tr>
+<tr>
+<td style="text-align: left;"><a href="https://www.modelscope.cn/models/damo/speech_paraformer-large-vad-punc_asr_nat-zh-cn-16k-common-vocab8404-pytorch/summary">Paraformer-zh</a> &nbsp; <a href="https://huggingface.co/funasr/paraformer-zh">🤗</a></td>
+<td style="text-align: left;">能够处理任意长度的输入wav文件</td>
+<td style="text-align: left;">60000小时，中文</td>
+<td style="text-align: left;">220M</td>
+<td style="text-align: left;">8404</td>
+<td style="text-align: left;">非实时</td>
+</tr>
+<tr>
+<td style="text-align: left;"><a href="https://modelscope.cn/models/damo/speech_paraformer-large-vad-punc-spk_asr_nat-zh-cn/summary">Paraformer-large-Spk</a></td>
+<td style="text-align: left;">分角色语音识别，在长音频功能的基础上添加说话人识别功能，带时间戳输出</td>
+<td style="text-align: left;">60000小时，中文</td>
+<td style="text-align: left;">220M</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">非实时</td>
+</tr>
+<tr>
+<td style="text-align: left;"><a href="https://www.modelscope.cn/models/damo/speech_paraformer-large_asr_nat-zh-cn-16k-common-vocab8404-pytorch/summary">Paraformer-large</a></td>
+<td style="text-align: left;">输入 wav 文件持续时间不超过20秒</td>
+<td style="text-align: left;">中文和英文，阿里巴巴语音数据（60000小时）</td>
+<td style="text-align: left;">220M</td>
+<td style="text-align: left;">8404</td>
+<td style="text-align: left;">非实时</td>
+</tr>
+<tr>
+<td style="text-align: left;"><a href="https://modelscope.cn/models/damo/speech_paraformer-large_asr_nat-zh-cn-16k-common-vocab8404-online/summary">Paraformer-zh-streaming</a> <a href="https://huggingface.co/funasr/paraformer-zh-streaming">🤗</a></td>
+<td style="text-align: left;">处理流式输入</td>
+<td style="text-align: left;">60000小时，中文</td>
+<td style="text-align: left;">220M</td>
+<td style="text-align: left;">8404</td>
+<td style="text-align: left;">实时</td>
+</tr>
+<tr>
+<td style="text-align: left;"><a href="https://www.modelscope.cn/models/iic/speech_paraformer_asr_nat-zh-cn-16k-common-vocab8404-online/summary">Paraformer-zh-Streaming-Small</a></td>
+<td style="text-align: left;">处理流式输入</td>
+<td style="text-align: left;">60000小时，中文</td>
+<td style="text-align: left;">220M</td>
+<td style="text-align: left;">8404</td>
+<td style="text-align: left;">实时</td>
+</tr>
+<tr>
+<td style="text-align: left;"><a href="https://www.modelscope.cn/models/damo/speech_paraformer-large-vad-punc_asr_nat-en-16k-common-vocab10020/summary">Paraformer-large-en 长音频版本</a> <a href="https://huggingface.co/funasr/paraformer-en">🤗</a></td>
+<td style="text-align: left;">能够处理任意长度的输入wav文件</td>
+<td style="text-align: left;">英文，阿里巴巴语音数据（50000小时）</td>
+<td style="text-align: left;">220M</td>
+<td style="text-align: left;">10020</td>
+<td style="text-align: left;">非实时</td>
+</tr>
+<tr>
+<td style="text-align: left;"><a href="https://www.modelscope.cn/models/damo/speech_paraformer-large-contextual_asr_nat-zh-cn-16k-common-vocab8404/summary">Paraformer-large 热词</a></td>
+<td style="text-align: left;">基于激励增强的热词定制支持，可以提高热词的召回率和准确率，输入wav文件持续时间不超过20秒</td>
+<td style="text-align: left;">中文和英文，阿里巴巴语音数据（60000小时）</td>
+<td style="text-align: left;">220M</td>
+<td style="text-align: left;">8404</td>
+<td style="text-align: left;">非实时</td>
+</tr>
+<tr>
+<td style="text-align: left;"><a href="https://modelscope.cn/models/damo/speech_paraformer_asr_nat-zh-cn-16k-common-vocab8358-tensorflow1/summary">Paraformer</a></td>
+<td style="text-align: left;">输入 wav 文件持续时间不超过20秒</td>
+<td style="text-align: left;">中文和英文，阿里巴巴语音数据（50000小时）</td>
+<td style="text-align: left;">68M</td>
+<td style="text-align: left;">8358</td>
+<td style="text-align: left;">离线</td>
+</tr>
+<tr>
+<td style="text-align: left;"><a href="https://www.modelscope.cn/models/damo/speech_paraformer-tiny-commandword_asr_nat-zh-cn-16k-vocab544-pytorch/summary">Paraformer-tiny</a></td>
+<td style="text-align: left;">轻量级Paraformer模型，支持普通话命令词识别</td>
+<td style="text-align: left;">中文，阿里巴巴语音数据 (200hours)</td>
+<td style="text-align: left;">5.2M</td>
+<td style="text-align: left;">544</td>
+<td style="text-align: left;">非实时</td>
+</tr>
+<tr>
+<td style="text-align: left;"><a href="https://www.modelscope.cn/models/damo/speech_paraformer_asr_nat-aishell1-pytorch/summary">Paraformer-aishell</a></td>
+<td style="text-align: left;">学术模型</td>
+<td style="text-align: left;">中文，AISHELL (178hours)</td>
+<td style="text-align: left;">43M</td>
+<td style="text-align: left;">4234</td>
+<td style="text-align: left;">非实时</td>
+</tr>
+<tr>
+<td style="text-align: left;"><a href="https://modelscope.cn/models/damo/speech_paraformerbert_asr_nat-zh-cn-16k-aishell1-vocab4234-pytorch/summary">ParaformerBert-aishell</a></td>
+<td style="text-align: left;">学术模型</td>
+<td style="text-align: left;">中文，AISHELL (178hours)</td>
+<td style="text-align: left;">43M</td>
+<td style="text-align: left;">4234</td>
+<td style="text-align: left;">非实时</td>
+</tr>
+<tr>
+<td style="text-align: left;"><a href="https://www.modelscope.cn/models/damo/speech_paraformer_asr_nat-zh-cn-16k-aishell2-vocab5212-pytorch/summary">Paraformer-aishell2</a></td>
+<td style="text-align: left;">学术模型</td>
+<td style="text-align: left;">中文，AISHELL-2 (1000hours)</td>
+<td style="text-align: left;">64M</td>
+<td style="text-align: left;">5212</td>
+<td style="text-align: left;">非实时</td>
+</tr>
+<tr>
+<td style="text-align: left;"><a href="https://www.modelscope.cn/models/damo/speech_paraformerbert_asr_nat-zh-cn-16k-aishell2-vocab5212-pytorch/summary">ParaformerBert-aishell2</a></td>
+<td style="text-align: left;">学术模型</td>
+<td style="text-align: left;">中文，AISHELL-2 (1000hours)</td>
+<td style="text-align: left;">64M</td>
+<td style="text-align: left;">5212</td>
+<td style="text-align: left;">非实时</td>
+</tr>
+</tbody>
+</table>
+<h3 id="13-uniasr">1.3 UniASR 模型<a class="headerlink" href="#13-uniasr" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">模型名字</th>
+<th style="text-align: left;">训练数据</th>
+<th style="text-align: left;">词典量</th>
+<th style="text-align: left;">参数量</th>
+<th style="text-align: left;">是否实时</th>
+<th style="text-align: left;">备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><a href="https://modelscope.cn/models/damo/speech_UniASR_asr_2pass-zh-cn-16k-common-vocab8358-tensorflow1-online/summary">UniASR</a></td>
+<td style="text-align: left;">中文和英文，阿里巴巴语音数据 (60000 小时)</td>
+<td style="text-align: left;">8358</td>
+<td style="text-align: left;">100M</td>
+<td style="text-align: left;">实时</td>
+<td style="text-align: left;">流式离线一体化模型</td>
+</tr>
+<tr>
+<td style="text-align: left;"><a href="https://modelscope.cn/models/damo/speech_UniASR-large_asr_2pass-zh-cn-16k-common-vocab8358-tensorflow1-offline/summary">UniASR-large</a></td>
+<td style="text-align: left;">中文和英文，阿里巴巴语音数据 (60000 小时)</td>
+<td style="text-align: left;">8358</td>
+<td style="text-align: left;">220M</td>
+<td style="text-align: left;">非实时</td>
+<td style="text-align: left;">流式离线一体化模型</td>
+</tr>
+<tr>
+<td style="text-align: left;"><a href="https://modelscope.cn/models/damo/speech_UniASR_asr_2pass-en-16k-common-vocab1080-tensorflow1-online/summary">UniASR English</a></td>
+<td style="text-align: left;">英文，阿里巴巴语音数据 (10000 小时)</td>
+<td style="text-align: left;">1080</td>
+<td style="text-align: left;">95M</td>
+<td style="text-align: left;">实时</td>
+<td style="text-align: left;">流式离线一体化模型</td>
+</tr>
+<tr>
+<td style="text-align: left;"><a href="https://modelscope.cn/models/damo/speech_UniASR_asr_2pass-ru-16k-common-vocab1664-tensorflow1-online/summary">UniASR Russian</a></td>
+<td style="text-align: left;">俄语， 阿里巴巴语音数据 (5000 小时)</td>
+<td style="text-align: left;">1664</td>
+<td style="text-align: left;">95M</td>
+<td style="text-align: left;">实时</td>
+<td style="text-align: left;">流式离线一体化模型</td>
+</tr>
+<tr>
+<td style="text-align: left;"><a href="https://modelscope.cn/models/damo/speech_UniASR_asr_2pass-ja-16k-common-vocab93-tensorflow1-online/summary">UniASR Japanese</a></td>
+<td style="text-align: left;">日语，阿里巴巴语音数据 (5000 小时)</td>
+<td style="text-align: left;">5977</td>
+<td style="text-align: left;">95M</td>
+<td style="text-align: left;">实时</td>
+<td style="text-align: left;">流式离线一体化模型</td>
+</tr>
+<tr>
+<td style="text-align: left;"><a href="https://modelscope.cn/models/damo/speech_UniASR_asr_2pass-ko-16k-common-vocab6400-tensorflow1-online/summary">UniASR Korean</a></td>
+<td style="text-align: left;">韩语，阿里巴巴语音数据 (2000 小时)</td>
+<td style="text-align: left;">6400</td>
+<td style="text-align: left;">95M</td>
+<td style="text-align: left;">实时</td>
+<td style="text-align: left;">流式离线一体化模型</td>
+</tr>
+<tr>
+<td style="text-align: left;"><a href="https://modelscope.cn/models/damo/speech_UniASR_asr_2pass-cantonese-CHS-16k-common-vocab1468-tensorflow1-online/summary">UniASR Cantonese (CHS)</a></td>
+<td style="text-align: left;">粤语（简体中文），阿里巴巴语音数据 (5000 小时)</td>
+<td style="text-align: left;">1468</td>
+<td style="text-align: left;">95M</td>
+<td style="text-align: left;">实时</td>
+<td style="text-align: left;">流式离线一体化模型</td>
+</tr>
+<tr>
+<td style="text-align: left;"><a href="https://modelscope.cn/models/damo/speech_UniASR_asr_2pass-id-16k-common-vocab1067-tensorflow1-online/summary">UniASR Indonesian</a></td>
+<td style="text-align: left;">印尼语，阿里巴巴语音数据 (1000 小时)</td>
+<td style="text-align: left;">1067</td>
+<td style="text-align: left;">95M</td>
+<td style="text-align: left;">实时</td>
+<td style="text-align: left;">流式离线一体化模型</td>
+</tr>
+<tr>
+<td style="text-align: left;"><a href="https://modelscope.cn/models/damo/speech_UniASR_asr_2pass-vi-16k-common-vocab1001-pytorch-online/summary">UniASR Vietnamese</a></td>
+<td style="text-align: left;">越南语</td>
+<td style="text-align: left;">阿里巴巴语音数据 (1000 小时)</td>
+<td style="text-align: left;">1001</td>
+<td style="text-align: left;">95M</td>
+<td style="text-align: left;">实时</td>
+</tr>
+<tr>
+<td style="text-align: left;"><a href="https://modelscope.cn/models/damo/speech_UniASR_asr_2pass-es-16k-common-vocab3445-tensorflow1-online/summary">UniASR Spanish</a></td>
+<td style="text-align: left;">西班牙语，阿里巴巴语音数据 (1000 小时)</td>
+<td style="text-align: left;">3445</td>
+<td style="text-align: left;">95M</td>
+<td style="text-align: left;">实时</td>
+<td style="text-align: left;">流式离线一体化模型</td>
+</tr>
+<tr>
+<td style="text-align: left;"><a href="https://modelscope.cn/models/damo/speech_UniASR_asr_2pass-pt-16k-common-vocab1617-tensorflow1-online/summary">UniASR Portuguese</a></td>
+<td style="text-align: left;">葡萄牙语，阿里巴巴语音数据 (1000 小时)</td>
+<td style="text-align: left;">1617</td>
+<td style="text-align: left;">95M</td>
+<td style="text-align: left;">实时</td>
+<td style="text-align: left;">流式离线一体化模型</td>
+</tr>
+<tr>
+<td style="text-align: left;"><a href="https://modelscope.cn/models/damo/speech_UniASR_asr_2pass-fr-16k-common-vocab3472-tensorflow1-online/summary">UniASR French</a></td>
+<td style="text-align: left;">法语，阿里巴巴语音数据 (1000 小时)</td>
+<td style="text-align: left;">3472</td>
+<td style="text-align: left;">95M</td>
+<td style="text-align: left;">实时</td>
+<td style="text-align: left;">流式离线一体化模型</td>
+</tr>
+<tr>
+<td style="text-align: left;"><a href="https://modelscope.cn/models/damo/speech_UniASR_asr_2pass-de-16k-common-vocab3690-tensorflow1-online/summary">UniASR German</a></td>
+<td style="text-align: left;">德语，阿里巴巴语音数据 (1000 小时)</td>
+<td style="text-align: left;">3690</td>
+<td style="text-align: left;">95M</td>
+<td style="text-align: left;">实时</td>
+<td style="text-align: left;">流式离线一体化模型</td>
+</tr>
+<tr>
+<td style="text-align: left;"><a href="https://modelscope.cn/models/damo/speech_UniASR_asr_2pass-fa-16k-common-vocab1257-pytorch-online/summary">UniASR Persian</a></td>
+<td style="text-align: left;">波斯语，阿里巴巴语音数据 (1000 小时)</td>
+<td style="text-align: left;">1257</td>
+<td style="text-align: left;">95M</td>
+<td style="text-align: left;">实时</td>
+<td style="text-align: left;">流式离线一体化模型</td>
+</tr>
+<tr>
+<td style="text-align: left;"><a href="https://modelscope.cn/models/damo/speech_UniASR_asr_2pass-my-16k-common-vocab696-pytorch/summary">UniASR Burmese</a></td>
+<td style="text-align: left;">缅甸语，阿里巴巴语音数据 (1000 小时)</td>
+<td style="text-align: left;">696</td>
+<td style="text-align: left;">95M</td>
+<td style="text-align: left;">实时</td>
+<td style="text-align: left;">流式离线一体化模型</td>
+</tr>
+<tr>
+<td style="text-align: left;"><a href="https://modelscope.cn/models/damo/speech_UniASR_asr_2pass-he-16k-common-vocab1085-pytorch/summary">UniASR Hebrew</a></td>
+<td style="text-align: left;">希伯来语，阿里巴巴语音数据 (1000 小时)</td>
+<td style="text-align: left;">1085</td>
+<td style="text-align: left;">95M</td>
+<td style="text-align: left;">实时</td>
+<td style="text-align: left;">流式离线一体化模型</td>
+</tr>
+<tr>
+<td style="text-align: left;"><a href="https://modelscope.cn/models/damo/speech_UniASR_asr_2pass-ur-16k-common-vocab877-pytorch/summary">UniASR Urdu</a></td>
+<td style="text-align: left;">乌尔都语，阿里巴巴语音数据 (1000 小时)</td>
+<td style="text-align: left;">877</td>
+<td style="text-align: left;">95M</td>
+<td style="text-align: left;">实时</td>
+<td style="text-align: left;">流式离线一体化模型</td>
+</tr>
+<tr>
+<td style="text-align: left;"><a href="https://modelscope.cn/models/damo/speech_UniASR_asr_2pass-tr-16k-common-vocab1582-pytorch/summary">UniASR Turkish</a></td>
+<td style="text-align: left;">土耳其语，阿里巴巴语音数据 (1000 小时)</td>
+<td style="text-align: left;">1582</td>
+<td style="text-align: left;">95M</td>
+<td style="text-align: left;">实时</td>
+<td style="text-align: left;">流式离线一体化模型</td>
+</tr>
+</tbody>
+</table>
+<h3 id="14-conformer">1.4 Conformer 模型<a class="headerlink" href="#14-conformer" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">模型名字</th>
+<th style="text-align: left;">训练数据</th>
+<th style="text-align: left;">参数量</th>
+<th style="text-align: left;">词典大小</th>
+<th style="text-align: left;">是否实时</th>
+<th style="text-align: left;">备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><a href="https://modelscope.cn/models/damo/speech_conformer_asr-en-16k-vocab4199-pytorch/summary">Conformer-en</a> <a href="https://huggingface.co/funasr/conformer-en">🤗</a></td>
+<td style="text-align: left;">50000小时，英文</td>
+<td style="text-align: left;">220M</td>
+<td style="text-align: left;">4199</td>
+<td style="text-align: left;">非实时</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: left;"><a href="https://modelscope.cn/models/damo/speech_conformer_asr_nat-zh-cn-16k-aishell1-vocab4234-pytorch/summary">Conformer</a></td>
+<td style="text-align: left;">中文，AISHELL (178hours)</td>
+<td style="text-align: left;">44M</td>
+<td style="text-align: left;">4234</td>
+<td style="text-align: left;">非实时</td>
+<td style="text-align: left;">输入wav文件持续时间不超过20秒</td>
+</tr>
+<tr>
+<td style="text-align: left;"><a href="https://www.modelscope.cn/models/damo/speech_conformer_asr_nat-zh-cn-16k-aishell2-vocab5212-pytorch/summary">Conformer</a></td>
+<td style="text-align: left;">中文，AISHELL-2 (1000hours)</td>
+<td style="text-align: left;">44M</td>
+<td style="text-align: left;">5212</td>
+<td style="text-align: left;">非实时</td>
+<td style="text-align: left;">输入wav文件持续时间不超过20秒</td>
+</tr>
+</tbody>
+</table>
+<h2 id="2">2. 多说话人语音识别模型<a class="headerlink" href="#2" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">模型名字</th>
+<th style="text-align: center;">训练数据</th>
+<th style="text-align: center;">词典量</th>
+<th style="text-align: center;">参数量</th>
+<th style="text-align: center;">非实时/实时</th>
+<th style="text-align: center;">备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><a href="https://www.modelscope.cn/models/NPU-ASLP/speech_mfcca_asr-zh-cn-16k-alimeeting-vocab4950/summary">MFCCA</a></td>
+<td style="text-align: center;">中文， AliMeeting、AISHELL-4、Simudata (917hours)</td>
+<td style="text-align: center;">4950</td>
+<td style="text-align: center;">45M</td>
+<td style="text-align: center;">非实时</td>
+<td style="text-align: center;">输入音频的持续时间不超过20秒，输入音频的通道数不超过8通道。</td>
+</tr>
+</tbody>
+</table>
+<h2 id="3">3. 语音端点检测模型<a class="headerlink" href="#3" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">模型名字</th>
+<th style="text-align: center;">训练数据</th>
+<th style="text-align: center;">模型参数</th>
+<th style="text-align: left;">采样率</th>
+<th style="text-align: left;">实时</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><a href="https://modelscope.cn/models/damo/speech_fsmn_vad_zh-cn-16k-common-pytorch/summary">FSMN-VAD</a> <a href="https://huggingface.co/funasr/fsmn-vad">🤗</a></td>
+<td style="text-align: center;">阿里巴巴语音数据 (5000hours)</td>
+<td style="text-align: center;">0.4M</td>
+<td style="text-align: left;">16000</td>
+<td style="text-align: left;">实时</td>
+</tr>
+<tr>
+<td style="text-align: center;"><a href="https://modelscope.cn/models/damo/speech_fsmn_vad_zh-cn-8k-common/summary">FSMN-VAD</a></td>
+<td style="text-align: center;">阿里巴巴语音数据 (5000hours)</td>
+<td style="text-align: center;">0.4M</td>
+<td style="text-align: left;">8000</td>
+<td style="text-align: left;">实时</td>
+</tr>
+</tbody>
+</table>
+<h2 id="4">4. 标点恢复模型<a class="headerlink" href="#4" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">模型</th>
+<th style="text-align: center;">任务详情</th>
+<th style="text-align: center;">训练数据</th>
+<th style="text-align: center;">模型参数</th>
+<th style="text-align: center;">词典大小</th>
+<th style="text-align: center;">非实时/实时</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><a href="https://modelscope.cn/models/damo/punc_ct-transformer_cn-en-common-vocab471067-large/summary">CT-Transformer-Large</a></td>
+<td style="text-align: center;">支持中英文标点大模型</td>
+<td style="text-align: center;">中文和英文，Alibaba Text Data(100M)</td>
+<td style="text-align: center;">1.1G</td>
+<td style="text-align: center;">471067</td>
+<td style="text-align: center;">非实时</td>
+</tr>
+<tr>
+<td style="text-align: center;"><a href="https://modelscope.cn/models/damo/punc_ct-transformer_zh-cn-common-vocab272727-pytorch/summary">CT-Transformer</a></td>
+<td style="text-align: center;">支持中英文标点</td>
+<td style="text-align: center;">中文和英文，Alibaba Text Data(70M)</td>
+<td style="text-align: center;">291M</td>
+<td style="text-align: center;">272727</td>
+<td style="text-align: center;">非实时</td>
+</tr>
+<tr>
+<td style="text-align: center;"><a href="https://modelscope.cn/models/damo/punc_ct-transformer_zh-cn-common-vad_realtime-vocab272727/summary">CT-Transformer-Realtime</a></td>
+<td style="text-align: center;">VAD点实时标点</td>
+<td style="text-align: center;">中文和英文，Alibaba Text Data(70M)</td>
+<td style="text-align: center;">288M</td>
+<td style="text-align: center;">272727</td>
+<td style="text-align: center;">实时</td>
+</tr>
+<tr>
+<td style="text-align: center;"><a href="https://modelscope.cn/models/damo/punc_ct-transformer_cn-en-common-vocab471067-large/summary">ct-punc</a> <a href="https://huggingface.co/funasr/ct-punc">🤗</a></td>
+<td style="text-align: center;">标点恢复</td>
+<td style="text-align: center;">100M，中文与英文</td>
+<td style="text-align: center;">290M</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+</tbody>
+</table>
+<h2 id="5">5. 语音模型<a class="headerlink" href="#5" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">模型</th>
+<th style="text-align: center;">训练数据</th>
+<th style="text-align: center;">参数量</th>
+<th style="text-align: center;">词典大小</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><a href="https://www.modelscope.cn/models/damo/speech_transformer_lm_zh-cn-common-vocab8404-pytorch/summary">Transformer</a></td>
+<td style="text-align: center;">阿里巴巴语音数据</td>
+<td style="text-align: center;">57M</td>
+<td style="text-align: center;">8404</td>
+</tr>
+</tbody>
+</table>
+<h2 id="6">6. 说话人确认模型<a class="headerlink" href="#6" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">模型</th>
+<th style="text-align: center;">训练数据</th>
+<th style="text-align: center;">参数量</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><a href="https://www.modelscope.cn/models/damo/speech_xvector_sv-zh-cn-cnceleb-16k-spk3465-pytorch/summary">Xvector</a></td>
+<td style="text-align: center;">中文，CNCeleb (1,200 小时)，3465 说话人</td>
+<td style="text-align: center;">17.5M</td>
+</tr>
+<tr>
+<td style="text-align: center;"><a href="https://www.modelscope.cn/models/damo/speech_xvector_sv-en-us-callhome-8k-spk6135-pytorch/summary">Xvector</a></td>
+<td style="text-align: center;">英文，CallHome (60 小时)，6135 说话人</td>
+<td style="text-align: center;">61M</td>
+</tr>
+<tr>
+<td style="text-align: center;">cam++ <br> <a href="https://modelscope.cn/models/iic/speech_campplus_sv_zh-cn_16k-common/summary">⭐</a> <a href="https://huggingface.co/funasr/campplus">🤗</a></td>
+<td style="text-align: center;">5000小时</td>
+<td style="text-align: center;">7.2M</td>
+</tr>
+</tbody>
+</table>
+<h2 id="7">7. 说话人日志模型<a class="headerlink" href="#7" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">模型</th>
+<th style="text-align: center;">训练数据</th>
+<th style="text-align: center;">参数量</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><a href="https://www.modelscope.cn/models/damo/speech_diarization_sond-zh-cn-alimeeting-16k-n16k4-pytorch/summary">SOND</a></td>
+<td style="text-align: center;">中文，AliMeeting (120 小时)</td>
+<td style="text-align: center;">40.5M</td>
+</tr>
+<tr>
+<td style="text-align: center;"><a href="https://www.modelscope.cn/models/damo/speech_diarization_sond-en-us-callhome-8k-n16k4-pytorch/summary">SOND</a></td>
+<td style="text-align: center;">英文，CallHome (60 小时)</td>
+<td style="text-align: center;">12M</td>
+</tr>
+</tbody>
+</table>
+<h2 id="8">8. 时间戳预测模型<a class="headerlink" href="#8" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">模型</th>
+<th style="text-align: center;">训练数据</th>
+<th style="text-align: center;">参数量</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><a href="https://modelscope.cn/models/damo/speech_timestamp_prediction-v1-16k-offline/summary">TP-Aligner</a></td>
+<td style="text-align: center;">中文，阿里巴巴语音数据 (50000hours)</td>
+<td style="text-align: center;">37.8M</td>
+</tr>
+<tr>
+<td style="text-align: center;">fa-zh <br> <a href="https://modelscope.cn/models/damo/speech_timestamp_prediction-v1-16k-offline/summary">⭐</a> <a href="https://huggingface.co/funasr/fa-zh">🤗</a></td>
+<td style="text-align: center;">50000 小时，中文</td>
+<td style="text-align: center;">38M</td>
+</tr>
+</tbody>
+</table>
+<h2 id="9">9. 逆文本正则化<a class="headerlink" href="#9" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">模型名字</th>
+<th style="text-align: left;">语言</th>
+<th style="text-align: left;">模型参数</th>
+<th style="text-align: left;">备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><a href="https://modelscope.cn/models/damo/speech_inverse_text_processing_fun-text-processing-itn-en/summary">English</a></td>
+<td style="text-align: left;">EN</td>
+<td style="text-align: left;">1.54M</td>
+<td style="text-align: left;">ITN，语音识别文本后处理</td>
+</tr>
+<tr>
+<td style="text-align: left;"><a href="https://modelscope.cn/models/damo/speech_inverse_text_processing_fun-text-processing-itn-ru/summary">Russian</a></td>
+<td style="text-align: left;">RU</td>
+<td style="text-align: left;">17.79M</td>
+<td style="text-align: left;">ITN，语音识别文本后处理</td>
+</tr>
+<tr>
+<td style="text-align: left;"><a href="https://modelscope.cn/models/damo/speech_inverse_text_processing_fun-text-processing-itn-ja/summary">Japanese</a></td>
+<td style="text-align: left;">JA</td>
+<td style="text-align: left;">6.8M</td>
+<td style="text-align: left;">ITN，语音识别文本后处理</td>
+</tr>
+<tr>
+<td style="text-align: left;"><a href="https://modelscope.cn/models/damo/speech_inverse_text_processing_fun-text-processing-itn-ko/summary">Korean</a></td>
+<td style="text-align: left;">KO</td>
+<td style="text-align: left;">1.28M</td>
+<td style="text-align: left;">ITN，语音识别文本后处理</td>
+</tr>
+<tr>
+<td style="text-align: left;"><a href="https://modelscope.cn/models/damo/speech_inverse_text_processing_fun-text-processing-itn-id/summary">Indonesian</a></td>
+<td style="text-align: left;">ID</td>
+<td style="text-align: left;">2.06M</td>
+<td style="text-align: left;">ITN，语音识别文本后处理</td>
+</tr>
+<tr>
+<td style="text-align: left;"><a href="https://modelscope.cn/models/damo/speech_inverse_text_processing_fun-text-processing-itn-vi/summary">Vietnamese</a></td>
+<td style="text-align: left;">VI</td>
+<td style="text-align: left;">0.92M</td>
+<td style="text-align: left;">ITN，语音识别文本后处理</td>
+</tr>
+<tr>
+<td style="text-align: left;"><a href="https://modelscope.cn/models/damo/speech_inverse_text_processing_fun-text-processing-itn-tl/summary">Tagalog</a></td>
+<td style="text-align: left;">TL</td>
+<td style="text-align: left;">0.65M</td>
+<td style="text-align: left;">ITN，语音识别文本后处理</td>
+</tr>
+<tr>
+<td style="text-align: left;"><a href="https://modelscope.cn/models/damo/speech_inverse_text_processing_fun-text-processing-itn-es/summary">Spanish</a></td>
+<td style="text-align: left;">ES</td>
+<td style="text-align: left;">1.32M</td>
+<td style="text-align: left;">ITN，语音识别文本后处理</td>
+</tr>
+<tr>
+<td style="text-align: left;"><a href="https://modelscope.cn/models/damo/speech_inverse_text_processing_fun-text-processing-itn-pt/summary">Portuguese</a></td>
+<td style="text-align: left;">PT</td>
+<td style="text-align: left;">1.28M</td>
+<td style="text-align: left;">ITN，语音识别文本后处理</td>
+</tr>
+<tr>
+<td style="text-align: left;"><a href="https://modelscope.cn/models/damo/speech_inverse_text_processing_fun-text-processing-itn-fr/summary">French</a></td>
+<td style="text-align: left;">FR</td>
+<td style="text-align: left;">4.39M</td>
+<td style="text-align: left;">ITN，语音识别文本后处理</td>
+</tr>
+<tr>
+<td style="text-align: left;"><a href="https://modelscope.cn/models/damo/speech_inverse_text_processing_fun-text-processing-itn-de/summary">German</a></td>
+<td style="text-align: left;">GE</td>
+<td style="text-align: left;">3.95M</td>
+<td style="text-align: left;">ITN，语音识别文本后处理</td>
+</tr>
+</tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var tab,labels=set.querySelector(".tabbed-labels");for(tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="页脚" >
+        
+          
+          <a href="../deploy/" class="md-footer__link md-footer__link--prev" aria-label="上一页: 服务部署">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                上一页
+              </span>
+              <div class="md-ellipsis">
+                服务部署
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../changelog/" class="md-footer__link md-footer__link--next" aria-label="下一页: 更新日志">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                下一页
+              </span>
+              <div class="md-ellipsis">
+                更新日志
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2024, Mingmin Yu
+    </div>
+  
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/modelscope/FunASR" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://qwen.readthedocs.io/zh-cn/latest" target="_blank" rel="noopener" title="qwen.readthedocs.io" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M96 0C43 0 0 43 0 96v320c0 53 43 96 96 96h320c17.7 0 32-14.3 32-32s-14.3-32-32-32v-64c17.7 0 32-14.3 32-32V32c0-17.7-14.3-32-32-32H96zm0 384h256v64H96c-17.7 0-32-14.3-32-32s14.3-32 32-32zm32-240c0-8.8 7.2-16 16-16h192c8.8 0 16 7.2 16 16s-7.2 16-16 16H144c-8.8 0-16-7.2-16-16zm16 48h192c8.8 0 16 7.2 16 16s-7.2 16-16 16H144c-8.8 0-16-7.2-16-16s7.2-16 16-16z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+      <div class="md-progress" data-md-component="progress" role="progressbar"></div>
+    
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["announce.dismiss", "content.code.annotate", "content.code.copy", "content.code.select", "content.tooltips", "content.tabs.link", "content.footnote.tooltips", "navigation.instant", "navigation.instant.progress", "navigation.footer", "navigation.tabs", "navigation.tabs.sticky", "navigation.top", "navigation.indexes", "navigation.tracking", "search.highlight", "search.share", "search.suggest", "toc.follow"], "search": "../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.fe8b6f2b.min.js"></script>
+      
+        <script src="../custom/javascripts/katex.js"></script>
+      
+        <script src="https://unpkg.com/katex@0/dist/katex.min.js"></script>
+      
+        <script src="https://unpkg.com/katex@0/dist/contrib/auto-render.min.js"></script>
+      
+        <script src="../assets/javascripts/toggle-sidebar.js" async></script>
+      
+    
+  </body>
+</html>
